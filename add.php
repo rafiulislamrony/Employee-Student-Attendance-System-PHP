@@ -19,8 +19,7 @@ if(isset($insertdata)){
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2>
-            <a class="btn btn-success" href="add.php">Add Student</a>
+        <h2> 
             <a class="btn btn-info pull-right" href="index.php">Back</a>
         </h2>
     </div>
