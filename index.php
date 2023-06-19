@@ -4,9 +4,19 @@
 <?php
 $stu = new Student();
 $current_date = date('Y-m-d');
+ 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $attend = $_POST['attend']; 
+    $insertAttendance  = $stu->insertAttendance($current_date, $attend);
+} 
 ?>
 
-
+<?php 
+if(isset($insertAttendance)){
+    echo $insertAttendance;  
+}
+?>
+ 
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2>
@@ -45,9 +55,9 @@ $current_date = date('Y-m-d');
                             <td><?php echo $result['name'];?></td>
                             <td><?php echo $result['roll'];?></td>
                             <td>
-                                <input type="radio" name="attend[<?php echo $result['name'];?>]" value="present" id="present<?php echo $i+1;?>"> <label
+                                <input type="radio" name="attend[<?php echo $result['roll'];?>]" value="present" id="present<?php echo $i+1;?>"> <label
                                     for="present<?php echo $i+1;?>">Present</label> ||
-                                <input type="radio" name="attend[<?php echo $result['name'];?>]" value="absent" id="absent<?php echo "x". $i+1;?>"> <label for="absent<?php echo "x". $i+1;?>">Absent</label>
+                                <input type="radio" name="attend[<?php echo $result['roll'];?>]" value="absent" id="absent<?php echo "x". $i+1;?>"> <label for="absent<?php echo "x". $i+1;?>">Absent</label>
                             </td>
                         </tr>
                     <?php }
