@@ -42,6 +42,7 @@ class Student
             }
         }
     }
+ 
 
     public function insertAttendance($date, $attend = array())
     {
