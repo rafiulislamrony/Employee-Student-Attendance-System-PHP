@@ -14,6 +14,6 @@
 <body>
     <div class="container">
         <div class="well text-center">
-            <h2>Employee/Student Attendance(Roll Call) System PHP</h2>
+            <h2>Employee/Student Attendance System PHP</h2>
         </div>
         <br>
