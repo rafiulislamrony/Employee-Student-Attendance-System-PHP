@@ -1,5 +1,22 @@
 <?php include 'inc/header.php'; ?>
 <?php include 'lib/Student.php'; ?>
+<script>  
+    $(document).ready(function () {
+        $("form").submit(function(){
+            var roll = true;
+            $(':radio').each(function(){
+                var name = $(this).attr('name');
+                if (roll && !$(':radio[name="'+name+'"]:checked').length){
+                    // alert(name + " Roll Missing!");
+                    $('.alt').show();
+                    roll = false;
+                }
+            });
+            return roll;
+        });
+    }); 
+
+</script>
 <?php
 $stu = new Student();
 $dt = $_GET['dt'];
@@ -7,16 +24,17 @@ $dt = $_GET['dt'];
 // error_reporting(0);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // $attend = $_POST['attend'];
-    // $updateAttendance = $stu->insertAttendance($current_date, $attend);
+     $attend = $_POST['attend'];
+    $att_update = $stu->updateAttendance($dt, $attend);
 }
 ?>
 <?php
-if (isset($updateAttendance)) {
-    echo $updateAttendance;
+if (isset($att_update)) {
+    echo $att_update; 
 }
 ?>
 
+<span class='error alt' style="display:none;">Student Attendance Missing...</span>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2>

@@ -42,7 +42,7 @@ class Student
             }
         }
     }
- 
+
 
     public function insertAttendance($date, $attend = array())
     {
@@ -65,7 +65,7 @@ class Student
                 $stu_query = "INSERT INTO tbl_attendance(roll, attend, attend_time) VALUES('$atnkey','absent', now())";
                 $dataInsert = $this->db->insert($stu_query);
             }
-        } 
+        }
 
         if ($stu_query) {
             $message = "<span class='success'>Data Inserted Successfully.</span>";
@@ -76,12 +76,14 @@ class Student
         }
     }
 
-    public function getDateList(){
+    public function getDateList()
+    {
         $query = "SELECT DISTINCT attend_time FROM tbl_attendance";
         $result = $this->db->select($query);
         return $result;
     }
-    public function getAlldata($dt){
+    public function getAlldata($dt)
+    {
         $query = "SELECT tbl_student.name, tbl_attendance.* FROM tbl_student 
         INNER JOIN tbl_attendance 
         ON tbl_student.roll = tbl_attendance.roll WHERE attend_time='$dt'";
@@ -89,7 +91,30 @@ class Student
         return $result;
     }
 
- 
+    public function updateAttendance($dt, $attend)
+    {
+        foreach ($attend as $atnkey => $atnvalue) {
+            if ($atnvalue == 'present') {
+                $query = "UPDATE tbl_attendance
+                SET attend ='present'
+                WHERE roll = '" . $atnkey . "' AND attend_time= '" . $dt . "'";
+                $data_update = $this->db->update($query);
+            } else if ($atnvalue == 'absent') {
+                $query = "UPDATE tbl_attendance
+                SET attend ='absent'
+                WHERE roll = '" . $atnkey . "' AND attend_time= '" . $dt . "'";
+                $data_update = $this->db->update($query);
+            }
+        }
+
+        if ($data_update) {
+            $message = "<span class='success'>Data Updated Successfully.</span>";
+            return $message;
+        } else {
+            $message = "<span class='error'>Data not Updated.</span>";
+            return $message;
+        }
+    } 
 }
 
 ?>
