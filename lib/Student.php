@@ -80,8 +80,15 @@ class Student
         $query = "SELECT DISTINCT attend_time FROM tbl_attendance";
         $result = $this->db->select($query);
         return $result;
-
     }
+    public function getAlldata($dt){
+        $query = "SELECT tbl_student.name, tbl_attendance.* FROM tbl_student 
+        INNER JOIN tbl_attendance 
+        ON tbl_student.roll = tbl_attendance.roll WHERE attend_time='$dt'";
+        $result = $this->db->select($query);
+        return $result;
+    }
+
  
 }
 
