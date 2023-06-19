@@ -4,7 +4,9 @@
 <?php
 $stu = new Student();
 $current_date = date('Y-m-d');
- 
+
+error_reporting(0);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $attend = $_POST['attend']; 
     $insertAttendance  = $stu->insertAttendance($current_date, $attend);
@@ -21,7 +23,7 @@ if(isset($insertAttendance)){
     <div class="panel-heading">
         <h2>
             <a class="btn btn-success" href="add.php">Add Student</a>
-            <a class="btn btn-info pull-right" href="">View All</a>
+            <a class="btn btn-info pull-right" href="attendance_view.php">View All</a>
         </h2>
     </div>
 

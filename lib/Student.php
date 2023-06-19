@@ -1,9 +1,7 @@
 <?php
 $filepath = realpath(dirname(__FILE__));
 include_once($filepath . '/Database.php');
-
 ?>
-
 
 <?php
 class Student
@@ -49,7 +47,7 @@ class Student
     {
         $query = "SELECT DISTINCT attend_time FROM tbl_attendance";
         $getData = $this->db->select($query);
-        
+
         while ($result = $getData->fetch_assoc()) {
             $dbDate = $result['attend_time'];
             if ($date == $dbDate) {
@@ -60,18 +58,30 @@ class Student
 
         foreach ($attend as $atnkey => $atnvalue) {
             if ($atnvalue == 'present') {
-                $stu_query = "INSERT INTO tbl_attendance(roll, attend , attend_time) 
-                VALUES('$atnkey','present', now())";
+                $stu_query = "INSERT INTO tbl_attendance(roll, attend, attend_time) VALUES('$atnkey','present', now())";
                 $dataInsert = $this->db->insert($stu_query);
             } else if ($atnvalue == 'absent') {
-                $stu_query = "INSERT INTO tbl_attendance(roll, attend , attend_time) 
-                VALUES('$atnkey','absent', now())";
+                $stu_query = "INSERT INTO tbl_attendance(roll, attend, attend_time) VALUES('$atnkey','absent', now())";
                 $dataInsert = $this->db->insert($stu_query);
             }
-        }
+        } 
 
+        if ($stu_query) {
+            $message = "<span class='success'>Data Inserted Successfully.</span>";
+            return $message;
+        } else {
+            $message = "<span class='error'>Data not Inserted.</span>";
+            return $message;
+        }
     }
 
+    public function getDateList(){
+        $query = "SELECT DISTINCT attend_time FROM tbl_attendance";
+        $result = $this->db->select($query);
+        return $result;
+
+    }
+ 
 }
 
 ?>
